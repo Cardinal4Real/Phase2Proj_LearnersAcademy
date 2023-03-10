@@ -4,12 +4,22 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Learners Academy - Dashboard</title>
+<title>Dashboard</title>
 </head>
 <body>
-<a href="#">Classrooms</a>
-<a href="#">Subjects</a>
-<a href="#">Teachers</a>
-<a href="#">Students</a>
+<h2>Learners' Academy - Welcome</h2>
+<a href="dashboard.jsp?navigate=classes">Classes</a>
+<a href="dashboard.jsp?navigate=subjects">Subjects</a>
+
+<% if(request.getParameter("navigate")==null){%>
+<%}else{%>
+<% try { %>
+	<% 	//String recParam=request.getParameter("navigate");
+		//String requestedPage=recParam + ".jsp";
+	%>
+	<br/><jsp:include page="${param.navigate}.jsp" />
+            <% } catch (Exception e) { e.printStackTrace();%>
+            <h3>Error Loading page <%=e.getLocalizedMessage()%></h3>	
+<%}} %>
 </body>
 </html>

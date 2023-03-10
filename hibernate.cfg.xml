@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+        <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.password">vX4uvyhSnGGqGwzt</property>
+        <property name="hibernate.connection.url">jdbc:mysql://10.233.202.114:3306/learnersAcademy</property>
+        <property name="hibernate.connection.username">sddb</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <mapping class="com.entity.Students"/>
+        <mapping class="com.entity.Classes"/>
+        <mapping class="com.entity.StudentClasses"/>
+        <mapping class="com.entity.Subjects"/>
+        <mapping class="com.entity.Teachers"/>
+    </session-factory>
+</hibernate-configuration>
