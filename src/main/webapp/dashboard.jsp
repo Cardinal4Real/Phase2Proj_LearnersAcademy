@@ -8,7 +8,9 @@
 </head>
 <body>
 <h2>Learners' Academy - Welcome</h2>
-<a href="dashboard.jsp?navigate=classes">Classes</a>
+<a href="dashboard?navigate=classes">Classes</a>
+<a href="dashboard.jsp?navigate=subjects">Subjects</a>
+<a href="dashboard.jsp?navigate=teachers">Teachers</a>
 <a href="dashboard.jsp?navigate=subjects">Subjects</a>
 
 <% if(request.getParameter("navigate")==null){%>
@@ -20,6 +22,6 @@
 	<br/><jsp:include page="${param.navigate}.jsp" />
             <% } catch (Exception e) { e.printStackTrace();%>
             <h3>Error Loading page <%=e.getLocalizedMessage()%></h3>	
-<%}} %>
+<%}} %> 
 </body>
 </html>

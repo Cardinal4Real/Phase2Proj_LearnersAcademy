@@ -1,5 +1,7 @@
 package com.services;
 
+import java.util.List;
+
 import com.daos.ClassesDao;
 import com.entities.Classes;
 
@@ -15,6 +17,9 @@ public class ClassesService {
 				return "Class details didn't store";
 			}
 		}
-
+		
+		public List<Classes> viewClass() {
+			return cd.viewClass();
+		}
 
 }

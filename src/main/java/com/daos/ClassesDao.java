@@ -1,5 +1,9 @@
 package com.daos;
 
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,6 +31,13 @@ public class ClassesDao {
 			System.out.println(e);
 			return 0;
 		}
+	}
+	public List<Classes> viewClass() {
+		System.out.println("Retrieving class records");
+		Session session = sf.openSession();
+		TypedQuery query=session.createQuery("from Classes");
+		List<Classes> classList=query.getResultList();	
+		return classList;		
 	}
 	
 }
