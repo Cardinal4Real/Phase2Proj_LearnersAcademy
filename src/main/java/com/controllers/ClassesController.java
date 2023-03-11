@@ -58,7 +58,7 @@ public class ClassesController extends HttpServlet {
 		case "classes":
 			//List<Classes> classList=classDao.viewClass();
 			request.setAttribute("listOfClasses", classDao.viewClass());
-			break;
+			break; 
 		case "subjects":
 			request.setAttribute("listOfSubjects", subjectDao.viewSubjects());
 			request.setAttribute("listOfClasses", classDao.viewClass());
