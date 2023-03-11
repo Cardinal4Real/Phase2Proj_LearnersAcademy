@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.services.ClassesService" %> 
 <%@ page import="com.entities.Classes" %>
 <%@ page import="java.util.List" %>    
 <!DOCTYPE html>
@@ -10,6 +9,15 @@
 <title>Classes</title>
 </head>
 <body>
+<%
+/*     List<Classes> classes = (List<Classes>) request.getAttribute("classrooms");
+    List<Subjects> subjects = (List<Subject>) request.getAttribute("subjects");
+    List<Teachers> teachers = (List<Teacher>) request.getAttribute("teachers");
+
+    Classroom editClassroom = (Classroom) request.getAttribute("classroom");
+    System.out.println("EDit classroom is " + editClassroom);
+    int counter = 0; */
+%>
 <h3>Class Registration</h3>
 <form method="POST">
 	<label>Class Name</label>

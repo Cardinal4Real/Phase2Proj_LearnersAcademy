@@ -12,7 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.daos.ClassesDao;
+import com.daos.StudentsDao;
+import com.daos.SubjectsDao;
+import com.daos.TeachersDao;
 import com.entities.Classes;
+import com.entities.Students;
+import com.entities.Subjects;
+import com.entities.Teachers;
 
 /**
  * Servlet implementation class ClassesController
@@ -20,7 +26,10 @@ import com.entities.Classes;
 @WebServlet(name="ClassesController",value="/dashboard")
 public class ClassesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    ClassesDao classDao=new ClassesDao();   
+    ClassesDao classDao=new ClassesDao();
+    StudentsDao studentDao=new StudentsDao();
+    SubjectsDao subjectDao=new SubjectsDao();
+    TeachersDao teacherDao=new TeachersDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -50,11 +59,16 @@ public class ClassesController extends HttpServlet {
 			//List<Classes> classList=classDao.viewClass();
 			request.setAttribute("listOfClasses", classDao.viewClass());
 			break;
-		case "students":
-			break;
 		case "subjects":
+			request.setAttribute("listOfSubjects", subjectDao.viewSubjects());
+			request.setAttribute("listOfClasses", classDao.viewClass());
+			break;
+		case "students":
+			request.setAttribute("listOfStudents", studentDao.viewStudents());
+			request.setAttribute("listOfClasses", classDao.viewClass());
 			break;
 		case "teachers":
+			request.setAttribute("listOfTeachers", teacherDao.viewTeachers());
 			break;
 		default:
 			break;
@@ -90,10 +104,28 @@ public class ClassesController extends HttpServlet {
 			classDao.registerClass(classes);}
 			break;
 		case "students":
+			if(request.getParameter("sname").isBlank()) {
+				out.println("Student name cannot be empty");
+			}else {
+			Students students=new Students();
+			students.setSname(request.getParameter("sname"));
+			studentDao.registerStudent(students);}
 			break;
 		case "subjects":
+			if(request.getParameter("subname").isBlank()) {
+				out.println("Subject name cannot be empty");
+			}else {
+			Subjects subjects=new Subjects();
+			subjects.setSubname(request.getParameter("subname"));
+			subjectDao.registerSubject(subjects);}
 			break;
-		case "teachers":
+		case "teachers":			
+			if(request.getParameter("tname").isBlank()) {
+				out.println("Subject name cannot be empty");
+			}else {
+			Teachers teachers=new Teachers();
+			teachers.setTname(request.getParameter("tname"));
+			teacherDao.registerTeacher(teachers);}
 			break;
 		default:
 			break;
