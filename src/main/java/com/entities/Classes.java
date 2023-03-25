@@ -19,10 +19,15 @@ public class Classes {
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    private Long id;
 		private String cname;
-	    @OneToMany(fetch = FetchType.EAGER)
-	    @JoinColumn(name = "classroom_id")
-	    private List<TeacherSubject> teacherSubject;
-	    
+		@OneToMany
+		@JoinColumn(name="classes_id")
+		private List<Students> students;
+		public List<Students> getStudents() {
+			return students;
+		}
+		public void setStudents(List<Students> students) {
+			this.students = students;
+		}
 	    public Long getId() {
 			return id;
 		}
@@ -35,15 +40,15 @@ public class Classes {
 		public void setCname(String cname) {
 			this.cname = cname;
 		}
-		public List<TeacherSubject> getTeacherSubject() {
-			return teacherSubject;
-		}
-		public void setTeacherSubject(List<TeacherSubject> teacherSubject) {
-			this.teacherSubject = teacherSubject;
-		}
+
+		/*
+		 * public List<TeacherSubject> getTeacherSubject() { return teacherSubject; }
+		 * public void setTeacherSubject(List<TeacherSubject> teacherSubject) {
+		 * this.teacherSubject = teacherSubject; }
+		 */
 		@Override
 		public String toString() {
-			return "Classes [id=" + id + ", cname=" + cname + ", teacherSubject=" + teacherSubject + "]";
+			return "Classes [id=" + id + ", cname=" + cname + "]";
 		}
 
 

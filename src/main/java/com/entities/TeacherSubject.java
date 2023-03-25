@@ -7,15 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-@Entity
-@Table(name="teacher_subjects")
+//@Entity
+//@Table(name="teacher_subjects")
 public class TeacherSubject {
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    private Long id;
-	    @OneToOne
+	    //@OneToOne
 	    private Teachers teacher;
-	    @OneToOne
+	    //@OneToOne
 	    private Subjects subject;
 	    @Column(name = "classroom_id")
 	    private Long classroomId;

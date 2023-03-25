@@ -9,8 +9,8 @@
 <body>
 <h2>Learners' Academy - Welcome</h2>
 <a href="dashboard?navigate=classes">Classes</a>
-<a href="dashboard?navigate=subjects">Subjects</a>
 <a href="dashboard?navigate=teachers">Teachers</a>
+<a href="dashboard?navigate=subjects">Subjects</a>
 <a href="dashboard?navigate=students">Students</a>
 
 <% if(request.getParameter("navigate")==null){%>
