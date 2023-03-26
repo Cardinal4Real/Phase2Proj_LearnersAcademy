@@ -100,23 +100,10 @@ public class ClassesController extends HttpServlet {
 		
 		switch(nav) {
 		case "classes":
-			if(request.getParameter("cname").isBlank()) {
-				out.println("Class name cannot be empty");
-			}else {
-			Classes classes=new Classes();
-			classes.setCname(request.getParameter("cname"));
-			classDao.register(classes);}
+			processClass(request,response);
 			break;
 		case "students":
-			if(request.getParameter("sname").isBlank()) {
-				out.println("Student name cannot be empty");
-			}else {
-			Students students=new Students();
-			students.setSname(request.getParameter("sname"));
-			Classes classes=classDao.findOne(Long.parseLong(request.getParameter("selectedClass")));
-			students.setClasses(classes);
-			studentDao.register(students);
-			}
+			processStudent(request,response);
 			break;
 		case "subjects":
 			processSubjects(request,response);			
@@ -139,11 +126,12 @@ public class ClassesController extends HttpServlet {
 		String editSubID=Optional.ofNullable(request.getParameter("editSubID")).orElse("");		
 		String deleteSubID=Optional.ofNullable(request.getParameter("deleteSubID")).orElse("");
 		String editTID=Optional.ofNullable(request.getParameter("editTID")).orElse("");
-		String deleteTID=Optional.ofNullable(request.getParameter("deleteTID")).orElse("");
+		//String deleteTID=Optional.ofNullable(request.getParameter("deleteTID")).orElse("");
 		String newSubName=Optional.ofNullable(request.getParameter("subname")).orElse("");
 		String newTName=Optional.ofNullable(request.getParameter("tname")).orElse("");
 		System.out.println("deleteSubID: "+deleteSubID);
-		System.out.println("editID: "+editSubID);
+		System.out.println("editSubID: "+editSubID);
+		System.out.println("editTID: "+editTID);
 		System.out.println("action: "+action);
 		switch(action){
 		case "edit":
@@ -234,5 +222,106 @@ public class ClassesController extends HttpServlet {
 				break;		
 		}
 	}
-
+	private void processClass(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		String action=Optional.ofNullable(request.getParameter("action")).orElse("");
+		String editID=Optional.ofNullable(request.getParameter("editID")).orElse("");
+		String deleteID=Optional.ofNullable(request.getParameter("deleteID")).orElse("");
+		String newName=Optional.ofNullable(request.getParameter("cname")).orElse("");
+		System.out.println("deleteID: "+deleteID);
+		System.out.println("editID: "+editID);
+		System.out.println("action: "+action);
+		switch(action){
+		case "edit":
+			System.out.println("In edit class loop");
+			Classes editClass=classDao.findOne(Long.parseLong(editID));
+			request.setAttribute("editClass", editClass);
+			break;
+		case "delete":
+			System.out.println("In delete class loop");
+			Classes deleteClass=classDao.findOne(Long.parseLong(deleteID));
+			request.setAttribute("deleteClass", deleteClass);
+			break;
+		case "viewReport":
+			break;
+		default:
+			if(!editID.isBlank()) {
+				System.out.println("In the edit final loop");
+				Classes class2edit=classDao.findOne(Long.parseLong(editID));
+				class2edit.setCname(newName);
+				System.out.println(class2edit.toString());
+				int res=classDao.register(class2edit);
+				System.out.printf("Edited class record %s",res);								
+			}
+			else if(!deleteID.isBlank()) {
+				System.out.println("In the delete final loop");
+				classDao.deleteOne(Long.parseLong(deleteID));
+				System.out.println("Deleted class record");
+				
+			}else {
+				System.out.println("Saving new clas record");
+				Classes classes=new Classes();
+				classes.setCname(request.getParameter("cname"));
+				classDao.register(classes);	
+			}
+				break;		
+		}
+	}
+	private void processStudent(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		String action=Optional.ofNullable(request.getParameter("action")).orElse("");
+		String editStudID=Optional.ofNullable(request.getParameter("editStudID")).orElse("");		
+		String deleteStudID=Optional.ofNullable(request.getParameter("deleteStudID")).orElse("");
+		String editCID=Optional.ofNullable(request.getParameter("editCID")).orElse("");
+		//String deleteTID=Optional.ofNullable(request.getParameter("deleteTID")).orElse("");
+		String newStudName=Optional.ofNullable(request.getParameter("sname")).orElse("");
+		String newCName=Optional.ofNullable(request.getParameter("cname")).orElse("");
+		System.out.println("editStudID: "+editStudID);
+		System.out.println("deleteStudID: "+deleteStudID);
+		System.out.println("editCID: "+editCID);
+		System.out.println("action: "+action);
+		switch(action){
+		case "edit":
+			System.out.println("In edit student loop");
+			Students editStudent=studentDao.findOne(Long.parseLong(editStudID));
+			request.setAttribute("editStudent", editStudent);			
+			Classes editClass=classDao.findOne(Long.parseLong(editCID));
+			request.setAttribute("editClass", editClass);
+			break;
+		case "delete":
+			System.out.println("In delete student loop");
+			Students deleteStudent=studentDao.findOne(Long.parseLong(deleteStudID));
+			request.setAttribute("deleteStudent", deleteStudent);
+			break;
+		case "viewReport":
+			break;
+		default:
+			if(!editStudID.isBlank()) {
+				System.out.println("In the edit student final loop");
+				Students student2edit=studentDao.findOne(Long.parseLong(editStudID));
+				student2edit.setSname(newStudName);
+				Classes class2edit=classDao.findOne(Long.parseLong(editCID));
+				class2edit.setCname(newCName);
+				System.out.println(student2edit.toString());
+				System.out.println(class2edit.toString());
+				int res=studentDao.register(student2edit);
+				int res2=classDao.register(class2edit);
+				System.out.printf("Edited subject record %s",res);	
+				System.out.printf("Edited subject record %s",res2);	
+			}
+			else if(!deleteStudID.isBlank()) {
+				System.out.println("In the delete student final loop");
+				studentDao.deleteOne(Long.parseLong(deleteStudID));
+				System.out.println("Deleted subject record");
+				
+			}else {
+				Students students=new Students();
+				students.setSname(request.getParameter("sname"));
+				Classes classes=classDao.findOne(Long.parseLong(request.getParameter("selectedClass")));
+				System.out.println(classes.toString());
+				students.setClasses(classes);
+				studentDao.register(students);}
+			}		
+		}
+	
 }

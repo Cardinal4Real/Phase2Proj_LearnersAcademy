@@ -36,8 +36,9 @@
 <br/>
 
 <h4><u>Teacher List</u></h4>
-<%	List<Teachers> listTeachers=(List<Teachers>)request.getAttribute("listOfTeachers");%>
-<table border="1px">
+<%	List<Teachers> listTeachers=(List<Teachers>)request.getAttribute("listOfTeachers");
+	if(!(listTeachers.isEmpty())){%>
+	<table border="1px">
 	  <tr>
 	    <th>ID</th>
 	    <th>Name</th>
@@ -65,6 +66,11 @@
 	   </tr>
 		
 	<%}%>
-	</table>
+		</table>	
+	<%}else{%>
+		<div>
+		<span>No teachers registered</span>
+		</div>
+		<%}%>
 </body>
 </html>

@@ -11,31 +11,86 @@
 </head>
 <body>
 <h3>Student Registration</h3>
+<%	Students student2edit=(Students)request.getAttribute("editStudent");%>
+<%	Students student2delete=(Students)request.getAttribute("deleteStudent");%>
+<%	Classes class2edit=(Classes)request.getAttribute("editClass");%>
+<%	Classes class2delete=(Classes)request.getAttribute("deleteClass");%>
 <form method="POST">
+	<% if (student2edit!=null) { %>
+	<input type="hidden" name="editStudID" value=<%=student2edit.getId()%>>
+	<label>Student Name</label>
+	<input type="text" name="sname" value="<%=student2edit.getSname()%>" required="required"><br/>
+	<input type="hidden" name="editCID" value=<%=student2edit.getClasses().getId()%>>
+	<label>Student's Class</label>
+	<input type="text" name="cname" value="<%=student2edit.getClasses().getCname()%>" required="required"><br/>
+
+	<input type="submit" value="Save">
+	<% } else if (student2delete!=null) { %>
+		<input type="hidden" name="deleteStudID" value=<%=student2delete.getId()%>>
+		<label>Student Name</label>
+		<input type="text" name="sname" value="<%=student2delete.getSname()%>" required="required"><br/>
+		<label>Student's Class</label>
+		<input type="text" name="cname" value="<%=student2delete.getClasses().getCname()%>" required="required"><br/>
+	
+		<input type="submit" value="Confirm Delete">
+	<% } else {%>
 		<label>Student Name</label>
 		<input type="text" name="sname" value=""><br/>
 		<label>Student's Class
 		<select name="selectedClass">
 		<% List<Classes> classList=(List<Classes>)request.getAttribute("listOfClasses"); 
-		if(!(classList==null)){%>
+		if(!(classList.isEmpty())){%>
 		 <%for (Classes cls:classList){ %>   
 		 <option value="<%=cls.getId()%>"> <%=cls.getCname()%> </option>
 		 <% }} %>
 		</select>
 	</label><br/>
-		<input type="submit" value="Save Student">
+		<input type="submit" value="Save">
+<%}%>
 </form>
 <br/>
 <br/>
 
 <h4><u>Student List</u></h4>
 <%	List<Students> listStudents=(List<Students>)request.getAttribute("listOfStudents");
-	for(Students std:listStudents){%>
-
+	if(!(listStudents.isEmpty())){%>
+	<table border="1px">
+	  <tr>
+	    <th>ID</th>
+	    <th>Name</th>
+	    <th>Student's Class</th>
+	    <th>Action - Edit</th>
+		<th>Action - Delete</th>
+	  </tr>
+	<%for (Students std:listStudents){
+		Classes classes=std.getClasses(); %> <!-- very important to assign here for sub.getTeachers().getId() to work -->
+		  <tr>
+		   <td><%=std.getId()%></td>
+		   <td><%=std.getSname() %></td>
+		   <td><%=std.getClasses() %></td>
+		   <td>
+			   	<form method="POST">
+					<input type="hidden" name="editStudID" value=<%=std.getId() %>>
+					<input type="hidden" name="editCID" value=<%=std.getClasses().getId()%>>
+					<input type="hidden" name="action" value="edit">	
+					<input type="submit" value="Edit">
+				</form>
+		   </td>
+		   <td>
+			   	<form method="POST">
+					<input type="hidden" name="deleteStudID" value=<%=std.getId() %>>
+					<input type="hidden" name="action" value="delete">
+					<input type="submit" value="Delete">
+				</form>		   
+		   </td>
+		  </tr>		
+	<% }%>
+		</table>	
+	<%}else{%>
 		<div>
-		<span>ID : <%=std.getId()%> Name :<%=std.getSname() %> Class :<%=std.getClasses() %></span>
+		<span>No students registered</span>
 		</div>
+		<%}%>
 		
-	<%}%>
 </body>
 </html>

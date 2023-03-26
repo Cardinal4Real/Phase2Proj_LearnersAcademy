@@ -67,21 +67,24 @@
 		    <th>Action - Edit</th>
 	    	<th>Action - Delete</th>
 		  </tr>
-	<% for(Subjects sub:listSubjects){%>
+	<% for(Subjects sub:listSubjects){
+	Teachers teacher=sub.getTeachers(); %> <!-- very important to assign here for sub.getTeachers().getId() to work -->
 		  <tr>
 		   <td><%=sub.getId()%></td>
 		   <td><%=sub.getSubname() %></td>
-		   <td><%=sub.getTeachers().getTname() %></td>
+		   <td><%=sub.getTeachers() %></td>
 		   <td>
 			   	<form method="POST">
-					<input type="hidden" name="editID" value=<%=sub.getId() %>>
-					<input type="hidden" name="action" value="edit">
+					<input type="hidden" name="editSubID" value=<%=sub.getId() %>>
+					<input type="hidden" name="editTID" value=<%=sub.getTeachers().getId()%>>
+					<!--  input type="hidden" name="editTID2" value=<%=teacher.getId()%>> -->
+					<input type="hidden" name="action" value="edit">	
 					<input type="submit" value="Edit">
 				</form>
 		   </td>
 		   <td>
 			   	<form method="POST">
-					<input type="hidden" name="deleteID" value=<%=sub.getId() %>>
+					<input type="hidden" name="deleteSubID" value=<%=sub.getId() %>>
 					<input type="hidden" name="action" value="delete">
 					<input type="submit" value="Delete">
 				</form>		   
