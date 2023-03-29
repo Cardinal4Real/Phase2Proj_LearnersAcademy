@@ -18,8 +18,7 @@
 
 <h3><u>Subjects Report</u></h3>
 <% 
-if(listSubjectReport!=null){
-	if(!(listSubjectReport.isEmpty())){%>
+if(listSubjectReport!=null && !listSubjectReport.isEmpty()){%>
 	<table border="1px">
 	  <tr>
 	    <th>ID</th>
@@ -27,24 +26,24 @@ if(listSubjectReport!=null){
 	  </tr>	
 <% for(Subjects lcs:listSubjectReport){%>
 	    <tr>
-	   <td><%=lcs.getId()%></td>
-	   <td><%=lcs.getSubname() %></td>
+	   <td><%=lcs==null?"":lcs.getId()%></td>
+	   <td><%=lcs==null?"":lcs.getSubname() %></td>
 	   </tr>
 	<%}%>
-		</table>	
+		</table>
+		<br>	
 		<div>
-			<span>Total Number of subjects taught in class: <%=listSubjectReport.size() %></span>
+			<span>Total Number of subjects taught in class: <b><%=listSubjectReport.size() %></b></span>
 		</div>
 	<%}else{%>
 		<div>
 		<span>No subjects being taught in class</span>
 		</div>
-		<%}}%>
+		<%}%>
 
 <h3><u>Students Report</u></h3>
 <% 
-if(listStudentReport!=null){
-	if(!(listStudentReport.isEmpty())){%>
+if(listStudentReport!=null && !listStudentReport.isEmpty()){%>
 	<table border="1px">
 	  <tr>
 	    <th>ID</th>
@@ -52,18 +51,19 @@ if(listStudentReport!=null){
 	  </tr>	
 <% for(Students std:listStudentReport){%>
 	    <tr>
-	   <td><%=std.getId()%></td>
-	   <td><%=std.getSname() %></td>
+	   <td><%=std==null?"":std.getId()%></td>
+	   <td><%=std==null?"":std.getSname() %></td>
 	   </tr>
 	<%}%>
-		</table>	
+		</table>
+		<br>	
 		<div>
-			<span>Total Number of students in class: <%=listStudentReport.size() %></span>
+			<span>Total Number of students in class: <b><%=listStudentReport.size() %></b></span>
 		</div>
 	<%}else{%>
 		<div>
 		<span>No student belongs to class</span>
 		</div>
-		<%}}%>		
+		<%}%>		
 </body>
 </html>

@@ -41,7 +41,7 @@
 <%List<Students> listStudentReport=(List<Students>)request.getAttribute("generateStudentsInClass"); %>
 
 <%	List<Classes> listClasses=(List<Classes>)request.getAttribute("listOfClasses");
-	if(!(listClasses.isEmpty())){%>
+	if(listClasses!=null && !(listClasses.isEmpty())){%>
 	<table border="1px">
 	  <tr>
 	    <th>ID</th>
@@ -52,25 +52,25 @@
 	  </tr>	
 	<% for(Classes c:listClasses){%>
 		    <tr>
-		   <td><%=c.getId()%></td>
-		   <td><%=c.getCname() %></td>
+		   <td><%=c==null?"":c.getId()%></td>
+		   <td><%=c==null?"":c.getCname() %></td>
 		   <td>
 			   	<form method="POST">
-					<input type="hidden" name="editID" value=<%=c.getId() %>>
+					<input type="hidden" name="editID" value=<%=c==null?"":c.getId() %>>
 					<input type="hidden" name="action" value="edit">
 					<input type="submit" value="Edit">
 				</form>
 		   </td>
 		   <td>
 			   	<form method="POST">
-					<input type="hidden" name="deleteID" value=<%=c.getId() %>>
+					<input type="hidden" name="deleteID" value=<%=c==null?"":c.getId() %>>
 					<input type="hidden" name="action" value="delete">
 					<input type="submit" value="Delete">
 				</form>		   
 		   </td>
 		   <td>
 			   	<form method="POST">
-					<input type="hidden" name="viewReportID" value=<%=c.getId() %>>
+					<input type="hidden" name="viewReportID" value=<%=c==null?"":c.getId() %>>
 					<input type="hidden" name="action" value="viewReport">
 					<input type="submit" value="View Report">
 				</form>		   

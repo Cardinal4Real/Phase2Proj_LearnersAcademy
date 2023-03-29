@@ -37,7 +37,7 @@
 
 <h4><u>Teacher List</u></h4>
 <%	List<Teachers> listTeachers=(List<Teachers>)request.getAttribute("listOfTeachers");
-	if(!(listTeachers.isEmpty())){%>
+	if(listTeachers!=null && !(listTeachers.isEmpty())){%>
 	<table border="1px">
 	  <tr>
 	    <th>ID</th>
@@ -47,18 +47,18 @@
 	  </tr>	
 <%for(Teachers tch:listTeachers){%> 
 	    <tr>
-		   <td><%=tch.getId()%></td>
-		   <td><%=tch.getTname() %></td>
+		   <td><%=tch==null?"":tch.getId()%></td>
+		   <td><%=tch==null?"":tch.getTname() %></td>
 		   <td>
 			   	<form method="POST">
-					<input type="hidden" name="editID" value=<%=tch.getId() %>>
+					<input type="hidden" name="editID" value=<%=tch==null?"":tch.getId() %>>
 					<input type="hidden" name="action" value="edit">
 					<input type="submit" value="Edit">
 				</form>
 		   </td>
 		   <td>
 			   	<form method="POST">
-					<input type="hidden" name="deleteID" value=<%=tch.getId() %>>
+					<input type="hidden" name="deleteID" value=<%=tch==null?"":tch.getId() %>>
 					<input type="hidden" name="action" value="delete">
 					<input type="submit" value="Delete">
 				</form>		   
