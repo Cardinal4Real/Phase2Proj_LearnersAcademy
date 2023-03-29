@@ -8,9 +8,6 @@
         <property name="hibernate.connection.password">r00t</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost/learnersAcademy</property>
         <property name="hibernate.connection.username">root</property> 
-<!--         <property name="hibernate.connection.password">vX4uvyhSnGGqGwzt</property>
-        <property name="hibernate.connection.url">jdbc:mysql://10.233.202.114:3306/specialDB</property>
-        <property name="hibernate.connection.username">sddb</property> -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="com.entity.Students"/>
