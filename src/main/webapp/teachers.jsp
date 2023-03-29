@@ -19,16 +19,16 @@
 	<% if (teacher2edit!=null) { %>
 		<input type="hidden" name="editID" value=<%=teacher2edit.getId()%>>
 		<label>Teacher Name</label>
-		<input type="text" name="tname" value="<%=teacher2edit.getTname()%>"><br/>
+		<input type="text" name="tname" value="<%=teacher2edit.getTname()%>" required="required"><br/>
 		<input type="submit" value="Save">
 	<% } else if (teacher2delete!=null) { %>
 		<input type="hidden" name="deleteID" value=<%=teacher2delete.getId()%>>
 		<label>Teacher Name</label>
-		<input type="text" name="tname" value="<%=teacher2delete.getTname()%>"><br/>
+		<input type="text" name="tname" value="<%=teacher2delete.getTname()%>" required="required"><br/>
 		<input type="submit" value="Confirm Delete">
 		<% } else {%>
 		<label>Teacher Name</label>
-		<input type="text" name="tname" value=""><br/>
+		<input type="text" name="tname" value="" required="required"><br/>
 		<input type="submit" value="Save">
 	<% } %>
 </form>

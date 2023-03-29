@@ -14,32 +14,50 @@
 <%	Students student2edit=(Students)request.getAttribute("editStudent");%>
 <%	Students student2delete=(Students)request.getAttribute("deleteStudent");%>
 <%	Classes class2edit=(Classes)request.getAttribute("editClass");%>
-<%	Classes class2delete=(Classes)request.getAttribute("deleteClass");%>
+<%--  <%	Classes class2delete=(Classes)request.getAttribute("deleteClass");%> --%>
 <form method="POST">
 	<% if (student2edit!=null) { %>
 	<input type="hidden" name="editStudID" value=<%=student2edit.getId()%>>
 	<label>Student Name</label>
 	<input type="text" name="sname" value="<%=student2edit.getSname()%>" required="required"><br/>
-	<input type="hidden" name="editCID" value=<%=student2edit.getClasses().getId()%>>
+<%-- 	<input type="hidden" name="editCID" value=<%=student2edit.getClasses().getId()%>>
 	<label>Student's Class</label>
 	<input type="text" name="cname" value="<%=student2edit.getClasses().getCname()%>" required="required"><br/>
-
+ --%>
+ 		<label>Student's Class
+		<select name="selectedClass">
+		<% List<Classes> classList=(List<Classes>)request.getAttribute("listOfClasses"); 
+		if(!(classList==null)){%>
+		 <%for (Classes cls:classList){ %>   
+		 <option value="<%=cls.getId()%>" <% String autoselect= ((cls.getId())==(student2edit.getClasses().getId())? "selected" : "");%> <%=autoselect %>> <%=cls.getCname()%> </option>
+		 <%-- <option value="<%=cls.getId()%>"> <%=cls.getCname()%> </option> --%>
+		 <% }} %>
+		</select>
+	</label><br/>
 	<input type="submit" value="Save">
 	<% } else if (student2delete!=null) { %>
 		<input type="hidden" name="deleteStudID" value=<%=student2delete.getId()%>>
 		<label>Student Name</label>
 		<input type="text" name="sname" value="<%=student2delete.getSname()%>" required="required"><br/>
-		<label>Student's Class</label>
-		<input type="text" name="cname" value="<%=student2delete.getClasses().getCname()%>" required="required"><br/>
-	
-		<input type="submit" value="Confirm Delete">
-	<% } else {%>
-		<label>Student Name</label>
-		<input type="text" name="sname" value=""><br/>
+<%-- 		<label>Student's Class</label>
+		<input type="text" name="cname" value="<%=student2delete.getClasses().getCname()%>" required="required"><br/> --%>
 		<label>Student's Class
 		<select name="selectedClass">
 		<% List<Classes> classList=(List<Classes>)request.getAttribute("listOfClasses"); 
-		if(!(classList.isEmpty())){%>
+		if(!(classList==null)){%>
+		 <%for (Classes cls:classList){ %>   
+		 <option value="<%=cls.getId()%>"> <%=cls.getCname()%> </option>
+		 <% }} %>
+		</select>
+	</label><br/>
+		<input type="submit" value="Confirm Delete">
+	<% } else {%>
+		<label>Student Name</label>
+		<input type="text" name="sname" value="" required="required"><br/>
+		<label>Student's Class
+		<select name="selectedClass">
+		<% List<Classes> classList=(List<Classes>)request.getAttribute("listOfClasses"); 
+		if(!(classList==null)){%>
 		 <%for (Classes cls:classList){ %>   
 		 <option value="<%=cls.getId()%>"> <%=cls.getCname()%> </option>
 		 <% }} %>
@@ -62,12 +80,11 @@
 	    <th>Action - Edit</th>
 		<th>Action - Delete</th>
 	  </tr>
-	<%for (Students std:listStudents){
-		Classes classes=std.getClasses(); %> <!-- very important to assign here for sub.getTeachers().getId() to work -->
+	<%for (Students std:listStudents){ %>
 		  <tr>
 		   <td><%=std.getId()%></td>
 		   <td><%=std.getSname() %></td>
-		   <td><%=std.getClasses() %></td>
+		   <td><%=std.getClasses().getCname() %></td>
 		   <td>
 			   	<form method="POST">
 					<input type="hidden" name="editStudID" value=<%=std.getId() %>>
