@@ -31,9 +31,6 @@
 <% if(request.getParameter("navigate")==null){%>
 <%}else{%>
 <% try { %>
-	<% 	//String recParam=request.getParameter("navigate");
-		//String requestedPage=recParam + ".jsp";
-	%>
 	<br/><jsp:include page="${param.navigate}.jsp" />
             <% } catch (Exception e) { e.printStackTrace();%>
             <h3>Error Loading page <%=e.getLocalizedMessage()%></h3>	
